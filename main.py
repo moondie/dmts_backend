@@ -1,19 +1,21 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-import db
+
+from log import Log
+from db import MongoDB
 
 app = Flask(__name__)
 CORS(app)
 
-mongodb = db.MongoDB("mongodb://root:LIwenke020@localhost:27017/")
+mongodb = MongoDB()
+logger = Log().logger
+
 
 @app.route("/taskmanage/getTaskList")
-def hello():
+def get_task_list():
+    logger.info("获取任务列表")
     return jsonify(mongodb.get_task_list())
 
-@app.route("/taskmanage/getTaskList")
-def hello():
-    return jsonify(mongodb.get_task_list())
 
 if __name__ == "__main__":
     app.run(port=8001)

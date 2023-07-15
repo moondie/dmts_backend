@@ -17,7 +17,7 @@ class MongoDB():
 
     def get_task_list(self) -> list:
         """获取任务列表"""
-        self._logger.info("开始获取任务列表")
+        self._logger.info("数据库读取任务列表")
         task_list = []
         for document in self._t_tasks.find():
             if not document["is_effective"]:
@@ -37,5 +37,5 @@ class MongoDB():
                 "size": document["size"],
             })
 
-        self._logger.info("结束获取任务列表")
+        self._logger.info("数据库结束获取任务列表")
         return task_list

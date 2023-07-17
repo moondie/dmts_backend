@@ -39,3 +39,14 @@ class MongoDB():
 
         self.__logger.info("数据库结束获取任务列表")
         return task_list
+
+    def delete_task(self, task_id) -> bool:
+        """删除任务"""
+        self.__logger.info(f"数据库开始删除任务: {task_id}")
+        if not self.__t_tasks.find_one({"taskId": task_id}):
+            self.__logger.info(f"数据库删除任务不存在并结束: {task_id}")
+            return False
+
+        self.__t_tasks.update_one({"taskId": task_id}, {"$set": {"is_effective": False}})
+        self.__logger.info(f"数据库删除任务并结束")
+        return True

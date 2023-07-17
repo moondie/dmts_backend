@@ -13,3 +13,8 @@ class TaskHandler():
         """获得任务列表"""
         self.__logger.info("读取任务列表")
         return self.__db.get_task_list()
+
+    def delete_task(self, task_id) -> bool:
+        """删除任务"""
+        self.__logger.info(f"删除任务: {task_id}")
+        return self.__db.delete_task(task_id)

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 from log import Log
@@ -17,5 +17,13 @@ def get_task_list():
     return jsonify(task_hander.get_task_list())
 
 
+@app.route("/taskmanage/delete", methods=["POST"])
+def delete_task():
+    task_id = request.get_json()["taskId"]
+    logger.info(f"网络请求-删除任务: {task_id}")
+    rtn = task_hander.delete_task(task_id)
+    return jsonify({"is_success": rtn})
+
+
 if __name__ == "__main__":
-    app.run(port=8001)
+    app.run(port=8001, debug=True)

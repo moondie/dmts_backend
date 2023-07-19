@@ -24,6 +24,13 @@ def delete_task():
     rtn = task_hander.delete_task(task_id)
     return jsonify({"is_success": rtn})
 
+@app.route("/taskmanage/create", methods=["POST"])
+def create_task():
+    task_info = request.get_json()
+    logger.info(f"网络请求-创建任务: {task_info}")
+    rtn = task_hander.create_task(task_info)
+    return jsonify({"is_success": rtn})
+
 
 if __name__ == "__main__":
     app.run(port=8001, debug=True)
